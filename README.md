@@ -1,5 +1,5 @@
 # get-package-dowloads
-Get the number of downloads of a NpmJs package, or a GitHub repository which is published on NpmJs.
+Get the number of downloads of NpmJs packages, or a GitHub repository which is published on NpmJs.
 
 # Installation
 ```
