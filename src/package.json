@@ -1,0 +1,26 @@
+{
+  "name": "get-package-downloads",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Temeteron/get-package-downloads"
+  },
+  "author": {
+    "name": "Dimitrios Greasidis",
+    "email": "temeteron94@gmail.com"
+  },
+  "keywords": [
+    "angular"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Temeteron/get-package-downloads/issues"
+  },
+  "module": "get-package-downloads.js",
+  "typings": "get-package-downloads.d.ts",
+  "peerDependencies": {
+    "@angular/core": "^4.0.0",
+    "rxjs": "^5.1.0",
+    "zone.js": "^0.8.4"
+  }
+}
