@@ -1,8 +1,8 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NpmService } from './downloads.service';
+import { NpmService } from './sample.service';
 
-export * from './downloads.service';
+export * from './sample.service';
 
 @NgModule({
   imports: [
@@ -13,10 +13,10 @@ export * from './downloads.service';
   exports: [
   ]
 })
-export class SampleModule {
+export class DownloadsModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: SampleModule,
+      ngModule: DownloadsModule,
       providers: [NpmService]
     };
   }

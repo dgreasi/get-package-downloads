@@ -1,6 +1,6 @@
 {
   "name": "get-package-downloads",
-  "version": "0.1.2",
+  "version": "0.1.0",
   "scripts": {
     "build": "gulp build",
     "build:watch": "gulp",
@@ -20,7 +20,11 @@
     "email": "temeteron94@gmail.com"
   },
   "keywords": [
-    "angular"
+    "angular",
+    "npm",
+    "package",
+    "downloads",
+    "github"
   ],
   "license": "MIT",
   "bugs": {
