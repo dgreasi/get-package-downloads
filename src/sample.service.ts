@@ -19,18 +19,22 @@ export class NpmService {
 	///////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////// DOWNLOADS OF A PACKAGE //////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////
-	getDowloadsPackage(packageName: string) {
-		this.getDownloads(packageName, 'corsanywhere');
+	getDowloadsPackage(packageName: string): any {
+		return this.getDownloads(packageName, 'corsanywhere');
 	}
 
 
-	getDownloads(packageName: string, provider: string) {
+	getDownloads(packageName: string, provider: string): any {
 		let repoL = packageName.toLowerCase();
 		// Get downloads for the specified package, return # of downloads
 		// or null if the package doesn't exist
-		this.getDownloadCountsRepo(repoL).subscribe(res => {
-			return this.returnDownloads(res);
-		});
+		// this.getDownloadCountsRepo(repoL).subscribe(res => {
+		// 	let result = this.returnDownloads(res);
+		// 	console.log("I will return the result: " + result);
+		// 	return result;
+		// });
+
+		return this.getDownloadCountsRepo(repoL);
 	}
 
 
@@ -42,22 +46,22 @@ export class NpmService {
 	// published project on NpmJs has the same owner with the repository given.
 	// If not then null will be returned because this package is not owned from this user
 
-	getDownloadsUserRepo(repo: Repo) {
+	getDownloadsUserRepo(repo: Repo): any {
 		this.getDownloadsRepo(repo, 'corsanywhere');
 	}
 
-	getDownloadsOrgRepo(repo: Repo) {
+	getDownloadsOrgRepo(repo: Repo): any {
 		this.getDownloadsRepo(repo, 'corsnow');
 	}
 
 
-	getDownloadsRepo(repo: Repo, provider?: string) {
+	getDownloadsRepo(repo: any, provider?: string): any {
 		if (!provider) {
 			provider = 'corsanywhere';
 		}
 
 		let repoL = repo.name.toLowerCase();
-		this.crossGet(`http://registry.npmjs.org/${repoL}/latest`,`${provider}`).map(res => res.json())
+		return this.crossGet(`http://registry.npmjs.org/${repoL}/latest`,`${provider}`).map(res => res.json())
 			.subscribe(res => {
 			// GOT RESULT
 			// console.log("Home page from repo: " + repo.url);
@@ -91,14 +95,10 @@ export class NpmService {
 	///////////////////////////////////////////////////////////////////////////////////
 
 
-	returnDownloads(res) {
-		console.log("Res: " + res);
-		console.log("Res.downloads: " + res.downloads);
+	returnDownloads(res): any {
 		if (res.downloads) {
-			console.log("returning downloads");
 			return res.downloads;
 		} else {
-			console.log("returning NULL");
 			return null;
 		}
 	}

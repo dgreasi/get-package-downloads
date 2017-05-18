@@ -1,6 +1,6 @@
 {
   "name": "get-package-downloads",
-  "version": "2.0.5",
+  "version": "3.0.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/Temeteron/get-package-downloads"
