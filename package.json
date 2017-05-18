@@ -1,6 +1,6 @@
 {
   "name": "get-package-downloads",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "homepage": "https://github.com/Temeteron/get-package-downloads",
   "scripts": {
     "build": "gulp build",
