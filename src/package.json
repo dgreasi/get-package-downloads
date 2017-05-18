@@ -1,9 +1,10 @@
 {
   "name": "get-package-downloads",
-  "version": "3.0.1",
+  "version": "3.0.2",
+  "homepage": "https://github.com/Temeteron/get-package-downloads",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Temeteron/get-package-downloads"
+    "url": "git://github.com/Temeteron/get-package-downloads.git"
   },
   "author": {
     "name": "Dimitrios Greasidis",
