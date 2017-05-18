@@ -1,6 +1,6 @@
 {
   "name": "get-package-downloads",
-  "version": "0.1.0",
+  "version": "2.0.5",
   "repository": {
     "type": "git",
     "url": "https://github.com/Temeteron/get-package-downloads"
@@ -10,7 +10,11 @@
     "email": "temeteron94@gmail.com"
   },
   "keywords": [
-    "angular"
+    "angular",
+    "npm",
+    "package",
+    "downloads",
+    "github"
   ],
   "license": "MIT",
   "bugs": {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
 import { Repo } from './repo';
 
 @Injectable()
@@ -65,18 +66,21 @@ export class NpmService {
 			if (repo.html_url == res.homepage) {
 				this.getDownloadCountsRepo(repoL).subscribe(res => {
 					Object.assign(repo, { downloads: (res.downloads ? res.downloads : null) });
+					return this.returnDownloads(res);
 				 // Object.assign(repo, { downloads: (this.returnDownloads(res)) });
 				// console.log("Downloads of repo: " + this.repos[i].name + " are: " + res.downloads);
 				});
 			} else {
 				Object.assign(repo, { downloads: null });
+				return null;
 			}
 			},
 			 (err) => {
 				// console.log(err);
 				if (err.status == 404) {
-				// console.log("NO package info");
-				Object.assign(repo, { downloads: null });
+					// console.log("NO package info");
+					Object.assign(repo, { downloads: null });
+					return null;
 				}
 		});
 	}
@@ -88,9 +92,13 @@ export class NpmService {
 
 
 	returnDownloads(res) {
+		console.log("Res: " + res);
+		console.log("Res.downloads: " + res.downloads);
 		if (res.downloads) {
+			console.log("returning downloads");
 			return res.downloads;
 		} else {
+			console.log("returning NULL");
 			return null;
 		}
 	}

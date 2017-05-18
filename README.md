@@ -8,8 +8,47 @@ Get the number of downloads of NpmJs packages, or a GitHub repository which is p
 npm install get-package-downloads
 ```
 
-# Import
+# Imports
+
+### app.module.ts
+```ts
+...
+
+import { HttpModule } from '@angular/http';
+import { NpmService } from 'get-package-downloads';
+
+...
+
+  declarations: [
+   ...
+  ],
+  imports: [
+    
+    ...
+
+    HttpModule,
+    
+    ...
+  ],
+  
+  ....
+
+  providers: [
+    ...
+
+    NpmService,
+    
+    ...
+  ]
 ```
+
+Check if @angular/http is installed, if not type:
+```bash
+npm i --save @angular/http
+```
+
+#### component.ts
+```ts
 import { NpmService } from 'get-package-downloads';
 
 ...
@@ -30,7 +69,7 @@ this.npmService.getDowloadsPackage(packageName)
 ```
 
 ## 2) Downloads of a repository
-Get the info of the repo and get the downloads from NpmJs, we will check if the published project on NpmJs has the same owner with the owner of the repository. If not, then null will be returned because this package is not owned from this user.
+Get the info of the repo and get the downloads from NpmJs, we will check if the published project on NpmJs has the same owner with the owner of the repository. If not, then null will be returned because this package is not owned from this user. Returns downloads of package or null and assigns the downloads in the repo object.
 ```ts
 this.npmService.getDownloadsRepo(repo: Repo);
 ```
@@ -43,6 +82,7 @@ The min objects you must provide, so that the library can work in this version a
 export interface Repo {
   name: string;
   html_url: string;
+  downloads: number;
 }
 ```
 
