@@ -1,6 +1,8 @@
 # get-package-downloads
 Get the number of downloads of NpmJs packages, or a GitHub repository which is published on NpmJs.
 
+# Currently NOT WORKING
+
 # Installation
 ```
 npm install get-package-downloads
