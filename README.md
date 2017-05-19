@@ -69,7 +69,86 @@ this.npmService.getDowloadsPackage(packageName).subscribe(res => {
 });
 ```
 
-## 2) Get info of package from NpmJs
+## 2) Downloads of a repository
+Get the info of the repo and get the downloads from NpmJs, we will check if the published project on NpmJs has the same owner with the owner of the repository. If not, then null will be returned because this package is not owned from this user. Returns downloads of package or null and assigns the downloads in the repo object.
+```ts
+let repo = new Object({
+    name: "localForage",
+    html_url: "https://github.com/localForage/localForage",
+    downloads: null
+});
+
+# Use of Observables
+this.npmService.getDownloadsRepo(repo).subscribe(res => {
+    console.log("Result of repo observable: " + res);
+});
+
+# Use of Promises
+this.npmService.getDownloadsRepoPromise(repo).then(res => {
+    console.log("Result of repo promise: " + res);
+});
+```
+
+### Example for the model of Repo
+
+#### Compulsory
+The min object you must provide, so that the library can work in this version is:
+```ts
+export interface Repo {
+  name: string;
+  html_url: string;
+  downloads: number;
+}
+```
+
+#### Optional
+Repo model:
+```ts
+import { User } from './user';
+
+export interface Repo {
+  id: string;
+  name: string;
+  owner: User;
+  full_name: string;
+  description: string;
+  fork: string;
+  html_url: string;
+  url: string;
+  tags_url: string;
+  language: string;
+  stargazers_count: number;
+  watchers_count: number;
+  downloads: number;
+  start: number;
+  end: number;
+  languages: {string, number}[];
+}
+```
+
+User model:
+```ts
+export interface User {
+  login: string;
+  name: string;
+  avatar_url: string;
+  email: string;
+  gists_url: string;
+  html_url: string;
+  blog: string;
+  location: string;
+  hireable: string;
+  bio: string;
+  created_at: string;
+  public_repos: number;
+  public_gists: number;
+  followers: number;
+  following: number;
+  type: string;
+}
+```
+
+## 3) Get info of package from NpmJs
 ```ts
 this.npmService.getPackageInfo(packageName: string).subscribe(res=>{
     console.log(res);
@@ -176,67 +255,3 @@ Example: the packageInfo for "localforage" will return the json:
 }
 ```
 
-## 3) Downloads of a repository "Currently not available"
-Get the info of the repo and get the downloads from NpmJs, we will check if the published project on NpmJs has the same owner with the owner of the repository. If not, then null will be returned because this package is not owned from this user. Returns downloads of package or null and assigns the downloads in the repo object.
-```ts
-this.npmService.getDownloadsRepo(repo: Repo);
-```
-
-### Example for the model of Repo
-
-#### Compulsory
-The min objects you must provide, so that the library can work in this version are:
-```ts
-export interface Repo {
-  name: string;
-  html_url: string;
-  downloads: number;
-}
-```
-
-#### Optional
-Repo model:
-```ts
-import { User } from './user';
-
-export interface Repo {
-  id: string;
-  name: string;
-  owner: User;
-  full_name: string;
-  description: string;
-  fork: string;
-  html_url: string;
-  url: string;
-  tags_url: string;
-  language: string;
-  stargazers_count: number;
-  watchers_count: number;
-  downloads: number;
-  start: number;
-  end: number;
-  languages: {string, number}[];
-}
-```
-
-User model:
-```ts
-export interface User {
-  login: string;
-  name: string;
-  avatar_url: string;
-  email: string;
-  gists_url: string;
-  html_url: string;
-  blog: string;
-  location: string;
-  hireable: string;
-  bio: string;
-  created_at: string;
-  public_repos: number;
-  public_gists: number;
-  followers: number;
-  following: number;
-  type: string;
-}
-```

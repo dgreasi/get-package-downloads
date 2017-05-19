@@ -19,7 +19,7 @@ export class NpmService {
 	///////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////// DOWNLOADS OF A PACKAGE //////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////
-	getDowloadsPackage(packageName: string): any {
+	getDowloadsPackage(packageName: string): Observable<any> {
 		return this.getDownloads(packageName, 'corsanywhere');
 	}
 
@@ -55,40 +55,109 @@ export class NpmService {
 	}
 
 
-	getDownloadsRepo(repo: any, provider?: string): any {
+	getDownloadsRepo(repo: any, provider?: string): Observable<any> {
 		if (!provider) {
 			provider = 'corsanywhere';
 		}
 
 		let repoL = repo.name.toLowerCase();
-		return this.crossGet(`http://registry.npmjs.org/${repoL}/latest`,`${provider}`).map(res => res.json())
-			.subscribe(res => {
-			// GOT RESULT
-			// console.log("Home page from repo: " + repo.url);
-			// console.log("Home page from npm: " + res.homepage);
-			// console.log("Got verification");
-			if (repo.html_url == res.homepage) {
-				this.getDownloadCountsRepo(repoL).subscribe(res => {
-					Object.assign(repo, { downloads: (res.downloads ? res.downloads : null) });
-					return this.returnDownloads(res);
-				 // Object.assign(repo, { downloads: (this.returnDownloads(res)) });
-				// console.log("Downloads of repo: " + this.repos[i].name + " are: " + res.downloads);
+
+		return new Observable<any>(observer => {
+			this.crossGet(`http://registry.npmjs.org/${repoL}/latest`,`${provider}`)
+				.map(res => res.json())
+				.subscribe(res => {
+					// GOT RESULT
+					// console.log("Home page from repo: " + repo.url);
+					// console.log("Home page from npm: " + res.homepage);
+					// console.log("Got verification");
+					if (repo.html_url == res.homepage) {
+						this.getDownloadCountsRepo(repoL).subscribe(res => {
+							Object.assign(repo, { downloads: (res.downloads ? res.downloads : null) });
+
+							var downloads = this.returnDownloads(res);
+							// return downloads;
+							observer.next(downloads);
+							observer.complete();
+
+							// Object.assign(repo, { downloads: (this.returnDownloads(res)) });
+							// console.log("Downloads of repo: " + this.repos[i].name + " are: " + res.downloads);
+						}, err => {
+							observer.error(err);
+							observer.complete();
+						});
+					} else {
+						Object.assign(repo, { downloads: null });
+						// return null;
+
+						observer.next(null);
+						observer.complete();
+					}
+				},
+				err => {
+					// console.log(err);
+					if (err.status == 404) {
+						// console.log("NO package info");
+						Object.assign(repo, { downloads: null });
+						return null;
+					}
+
+					observer.error(err);
+					observer.complete();
 				});
-			} else {
-				Object.assign(repo, { downloads: null });
-				return null;
-			}
-			},
-			 (err) => {
-				// console.log(err);
-				if (err.status == 404) {
-					// console.log("NO package info");
-					Object.assign(repo, { downloads: null });
-					return null;
-				}
+
+			// On unsubscription, cancel the timer
+			return () => {};
 		});
 	}
 
+
+	getDownloadsRepoPromise(repo: any, provider?: string): Promise<any> {
+		if (!provider) {
+			provider = 'corsanywhere';
+		}
+
+		let repoL = repo.name.toLowerCase();
+		return new Promise<any>((resolve, reject) => {
+			this.crossGet(`http://registry.npmjs.org/${repoL}/latest`,`${provider}`)
+				.map(res => res.json())
+				.subscribe(res => {
+					// GOT RESULT
+					// console.log("Home page from repo: " + repo.url);
+					// console.log("Home page from npm: " + res.homepage);
+					// console.log("Got verification");
+					if (repo.html_url == res.homepage) {
+						this.getDownloadCountsRepo(repoL).subscribe(res => {
+							Object.assign(repo, { downloads: (res.downloads ? res.downloads : null) });
+
+							var downloads = this.returnDownloads(res);
+							// return downloads;
+							resolve(downloads);
+
+							// Object.assign(repo, { downloads: (this.returnDownloads(res)) });
+							// console.log("Downloads of repo: " + this.repos[i].name + " are: " + res.downloads);
+						}, err => {
+							reject(err);
+						});
+					} else {
+						Object.assign(repo, { downloads: null });
+						// return null;
+
+						resolve(null);
+					}
+				},
+				err => {
+					// console.log(err);
+					if (err.status == 404) {
+						// console.log("NO package info");
+						Object.assign(repo, { downloads: null });
+						return null;
+					}
+
+					reject(err);
+				});
+		});
+		
+	}
 
 	///////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////// HELP FUNCTIONS ////////////////////////////////////
