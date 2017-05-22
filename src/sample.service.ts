@@ -209,7 +209,8 @@ export class NpmService {
 	}
 
 	getPackageInfo(packageName: string): Observable<any> {
-		return this.crossGet(`http://registry.npmjs.org/${packageName}/latest`, 'corsanywhere')
+		let repoL = packageName.toLowerCase();
+		return this.crossGet(`http://registry.npmjs.org/${repoL}/latest`, 'corsanywhere')
 		.map(res => res.json()); 
 	}
 
