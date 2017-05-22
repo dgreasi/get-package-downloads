@@ -1,5 +1,6 @@
 # get-package-downloads
 Get the monthly downloads of NpmJs packages or repositories which are published on NpmJs.
+[Live Demo](https://ionic2-firebase.appspot.com/#/get-package-downloads)
 
 # Installation
 ```
