@@ -1,7 +1,7 @@
 {
   "name": "get-package-downloads",
   "version": "3.1.0",
-  "homepage": "https://github.com/Temeteron/get-package-downloads",
+  "homepage": "https://github.com/dgreasi/get-package-downloads",
   "scripts": {
     "build": "gulp build",
     "build:watch": "gulp",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/Temeteron/get-package-downloads.git"
+    "url": "git://github.com/dgreasi/get-package-downloads.git"
   },
   "author": {
     "name": "Dimitrios Greasidis",
@@ -29,7 +29,7 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Temeteron/get-package-downloads/issues"
+    "url": "https://github.com/dgreasi/get-package-downloads/issues"
   },
   "devDependencies": {
     "@angular/common": "^4.0.0",

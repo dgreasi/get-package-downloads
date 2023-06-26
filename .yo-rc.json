@@ -1,7 +1,7 @@
 {
   "generator-angular2-library": {
     "promptValues": {
-      "gitRepositoryUrl": "https://github.com/Temeteron/get-package-downloads"
+      "gitRepositoryUrl": "https://github.com/dgreasi/get-package-downloads"
     }
   }
 }
